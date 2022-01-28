@@ -5,11 +5,11 @@ Description=Simple Service
 WantedBy=multi-user.target
 
 [Service]
-User=
+User=pi
 Group=
-ExecStart=
+ExecStart=/usr/bin/python3 /home/pi/app/main.py
 ExecStop=
-WorkingDirectory=
+WorkingDirectory=/home/pi
 SyslogIdentifier=simple
 Restart=always
 RestartSec=5
