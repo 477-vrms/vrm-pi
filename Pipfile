@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 setproctitle = "*"
 service = "*"
+pika = "*"
 
 [dev-packages]
 
