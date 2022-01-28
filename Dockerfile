@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM raspbian/systemd
 
 # Install.
 RUN \
