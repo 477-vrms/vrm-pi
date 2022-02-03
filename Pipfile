@@ -7,6 +7,7 @@ name = "pypi"
 setproctitle = "*"
 service = "*"
 pika = "*"
+pyzmq = "*"
 
 [dev-packages]
 
