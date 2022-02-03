@@ -56,3 +56,5 @@ dist/
 vrms_pi.egg-info/
 logs.txt
 joint.txt
+
+**/__pycache__/**
