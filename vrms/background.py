@@ -3,27 +3,34 @@ import os
 from time import sleep
 import datetime
 
-from vrms import Mqtt, Udp
+from vrms.hardware.arm import ArmHandler
+from vrms.network.mqtt import Mqtt
+from vrms.network.udp import Udp
+
+a = ArmHandler()
+m = Mqtt(a)
+u = Udp()
 
 
 def example() -> None:
     count: int = 0
     while True:
         x = datetime.datetime.now()
-        print(f'Hello World: {x}')
         os.system(f'echo {count} >> logs.txt')
         count += 1
         sleep(3600)
 
 
 def mqtt() -> None:
-    m = Mqtt()
     m.client()
 
 
 def udp() -> None:
-    u = Udp()
     u.client()
+
+
+def arm() -> None:
+    a.client()
 
 
 class Background:
