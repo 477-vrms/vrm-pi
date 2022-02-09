@@ -8,6 +8,7 @@ setproctitle = "*"
 service = "*"
 pika = "*"
 pyzmq = "*"
+serial = "*"
 
 [dev-packages]
 
