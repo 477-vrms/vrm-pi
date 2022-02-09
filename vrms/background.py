@@ -1,6 +1,5 @@
 from multiprocessing import Process
 import os
-import serial
 from time import sleep
 import datetime
 import wiringpi
@@ -34,27 +33,31 @@ def udp() -> None:
 def arm() -> None:
     a.client()
 
-def uart_tx_rx() -> None: 
+
+def uart_tx_rx() -> None:
     wiringpi.wiringPiSetup()
-    serial = wiringpi.serialOpen('/dev/ttyAMA0',9600)
+    serial = wiringpi.serialOpen('/dev/ttyAMA0', 9600)
     print(serial)
     while True:
         print(wiringpi.serialDataAvail(serial))
+
 
 class Background:
 
     def __init__(self):
         self.p1 = Process(target=example)
         self.p2 = Process(target=mqtt)
-        #self.p3 = Process(target=udp)
-        self.p3 = Process(target=uart_tx_rx)
+        self.p3 = Process(target=udp)
+        self.p4 = Process(target=uart_tx_rx)
 
     def listen(self):
         self.p1.start()
         self.p2.start()
         self.p3.start()
+        self.p4.start()
 
     def close(self):
         self.p1.join()
         self.p2.join()
         self.p3.join()
+        self.p4.join()
