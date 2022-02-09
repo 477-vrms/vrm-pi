@@ -35,11 +35,16 @@ def arm() -> None:
     a.client()
 
 def uart_tx_rx() -> None: 
-    wiringpi.wiringPiSetup()
-    serial = wiringpi.serialOpen('/dev/ttyAMA0',9600)
-    print(serial)
+    ser = serial.Serial("/dev/ttyS0", 9600)    #Open port with baud rate
     while True:
-        print(wiringpi.serialDataAvail(serial))
+        print('reading...')
+        received_data = ser.read()              #read serial port
+        print('done')
+        sleep(0.03)
+        data_left = ser.inWaiting()             #check for remaining byte
+        received_data += ser.read(data_left)
+        print (received_data)                   #print received data
+        ser.write(received_data)                #transmit data serially
 
 class Background:
 
