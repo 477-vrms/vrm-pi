@@ -19,6 +19,7 @@ class Mqtt:
                 try:
                     str_json = response.decode("UTF-8")
                     obj = json.loads(str_json)
+                    print(obj)
                     self.arm_handler.add_json(obj)
                 except json.JSONDecodeError as e:
                     print(e)
