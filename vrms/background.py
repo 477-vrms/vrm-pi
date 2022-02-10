@@ -2,7 +2,7 @@ from multiprocessing import Process
 import os
 from time import sleep
 import datetime
-import wiringpi
+import serial
 
 from vrms.hardware.arm import ArmHandler
 from vrms.network.mqtt import Mqtt
@@ -33,13 +33,14 @@ def udp() -> None:
 def arm() -> None:
     a.client()
 
-
-def uart_tx_rx() -> None:
-    wiringpi.wiringPiSetup()
-    serial = wiringpi.serialOpen('/dev/ttyAMA0', 9600)
-    print(serial)
+def uart_tx_rx() -> None: 
+    ser = serial.Serial("/dev/ttyS0", 9600)    #Open port with baud rate
     while True:
-        print(wiringpi.serialDataAvail(serial))
+        received_data = ser.read()              #read serial port
+        sleep(0.03)
+        data_left = ser.inWaiting()             #check for remaining byte
+        received_data += ser.read(data_left)
+        ser.write(received_data)                #transmit data serially
 
 
 class Background:
