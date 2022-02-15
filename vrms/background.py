@@ -33,14 +33,18 @@ def udp() -> None:
 def arm() -> None:
     a.client()
 
-def uart_tx_rx() -> None: 
-    ser = serial.Serial("/dev/ttyS0", 9600)    #Open port with baud rate
-    while True:
-        received_data = ser.read()              #read serial port
-        sleep(0.03)
-        data_left = ser.inWaiting()             #check for remaining byte
-        received_data += ser.read(data_left)
-        ser.write(received_data)                #transmit data serially
+
+def uart_tx_rx() -> None:
+    try:
+        ser = serial.Serial("/dev/ttyS0", 9600)  # Open port with baud rate
+        while True:
+            received_data = ser.read()  # read serial port
+            sleep(0.03)
+            data_left = ser.inWaiting()  # check for remaining byte
+            received_data += ser.read(data_left)
+            ser.write(received_data)  # transmit data serially
+    except Exception as e:
+        print(e)
 
 
 class Background:
