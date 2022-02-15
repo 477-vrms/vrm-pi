@@ -4,11 +4,7 @@ from typing import Optional
 
 
 def on_retrieve_position(arm_json) -> None:
-    latency = -1
-    current = (time.time() % 10000000000)
-    if "T" in arm_json:
-        latency = current - float(arm_json["T"])
-    os.system(f'echo "{arm_json}, {current}, {latency}" >> joint.csv')
+    print(arm_json)
 
 
 class JsonData:
