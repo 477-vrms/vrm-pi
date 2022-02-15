@@ -8,9 +8,6 @@ from vrms.hardware.arm import ArmHandler
 from vrms.network.mqtt import Mqtt
 from vrms.network.udp import Udp
 
-a = ArmHandler()
-m = Mqtt(a)
-u = Udp()
 
 
 def example() -> None:
@@ -23,15 +20,19 @@ def example() -> None:
 
 
 def mqtt() -> None:
+    a = ArmHandler()
+    m = Mqtt(a)
     m.client()
 
 
 def udp() -> None:
+    u = Udp()
     u.client()
 
 
 def arm() -> None:
-    a.client()
+    pass
+    # a.client()
 
 
 def uart_tx_rx() -> None:
