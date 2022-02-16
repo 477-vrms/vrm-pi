@@ -30,11 +30,6 @@ def udp() -> None:
     u.client()
 
 
-def arm() -> None:
-    pass
-    # a.client()
-
-
 def uart_tx_rx() -> None:
     try:
         ser = serial.Serial("/dev/ttyS0", 9600)  # Open port with baud rate
