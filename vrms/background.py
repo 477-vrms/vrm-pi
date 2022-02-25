@@ -31,17 +31,19 @@ def udp() -> None:
 
 
 def uart_tx_rx() -> None:
-    try:
-        ser = serial.Serial("/dev/ttyS0", 9600)  # Open port with baud rate
-        while True:
-            received_data = ser.read()  # read serial port
-            sleep(0.03)
-            data_left = ser.inWaiting()  # check for remaining byte
-            received_data += ser.read(data_left)
-            ser.write(received_data)  # transmit data serially
-    except Exception as e:
-        print(e)
-
+    test_string = "Test serial port ...".encode('utf-8')
+    port_list = ["/dev/ttyAMA1"]#,"/dev/ttyAMA1","/dev/ttyS0","/dev/ttyS"]
+    while 1:
+        try:
+            serialPort = serial.Serial("/dev/ttyAMA1", 9600, timeout = 2)
+            #print ("Serial port", "/dev/ttyAMA1", " ready for test :")
+            bytes_sent = serialPort.write(test_string)
+            #print ("Sended", bytes_sent, "byte")
+            loopback = serialPort.read(bytes_sent)
+            #print("Received ",len(loopback), "bytes. Port", "/dev/ttyAMA1")
+            serialPort.close()
+        except IOError:
+            print("Error on", "/dev/ttyAMA1","\n")
 
 class Background:
 
