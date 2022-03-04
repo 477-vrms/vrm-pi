@@ -22,13 +22,17 @@ class Mqtt:
         self.subscriber.setsockopt(zmq.SUBSCRIBE, b"vrms_pi")
         self.arm_handler = ArmHandler.load_arm()
 
-    def client(self) -> None:
+    def client(self, lock) -> None:
         while True:
             response = self.subscriber.recv()
             if response != b"vrms_pi":
                 try:
                     str_json = response.decode("UTF-8")
                     obj = json.loads(str_json)
-                    self.arm_handler.enqueue(obj)
+                    lock.acquire()
+                    try:
+                        self.arm_handler.enqueue(obj)
+                    finally:
+                        lock.release()
                 except json.JSONDecodeError as e:
                     print(e)

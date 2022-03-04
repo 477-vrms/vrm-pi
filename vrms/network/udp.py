@@ -27,7 +27,7 @@ class Udp:
             sleep(1)
             count += 1
 
-    def client(self) -> None:
+    def client(self, lock) -> None:
         print("listening for messages")
         self.server()
         while True:

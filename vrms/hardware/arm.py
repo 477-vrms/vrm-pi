@@ -1,5 +1,3 @@
-import json
-
 import serial
 
 
@@ -53,13 +51,12 @@ class ArmHandler:
         self.size -= 1
         return item
 
-    def client(self):
+    def client(self, lock):
         while True:
             item = self.dequeue()
             if item is not None:
-                print(f"size: {self.size}")
-                # self.on_retrieve_position(arm_json=item)
-                # self.uart_tx_rx()
+                self.on_retrieve_position(arm_json=item)
+                self.uart_tx_rx()
 
     def uart_tx_rx(self) -> None:
         j_str = (str(self.j1) + ":" + str(self.j2) + ":" + str(self.j3) + ":" + str(self.j4) + ":" + str(
