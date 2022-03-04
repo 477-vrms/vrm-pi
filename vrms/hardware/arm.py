@@ -5,11 +5,11 @@ def uart_tx_rx(self) -> None:
     print(j_str)
     serialPort = serial.Serial("/dev/ttyAMA1", 9600, timeout = 2)
     bytes_sent = serialPort.write(j_str)
-    print("SENT: ")
-    print(bytes_sent)
-    loopback = serialPort.read(bytes_sent)
-    print("Received")
-    print(loopback)
+    #print("SENT: ")
+    #print(bytes_sent)
+    #loopback = serialPort.read(bytes_sent)
+    #print("Received")
+    #print(loopback)
 
 def on_retrieve_position(self,arm_json) -> None:
     print(arm_json)

@@ -18,6 +18,7 @@ class Mqtt:
             if response != b"vrms_pi":
                 try:
                     str_json = response.decode("UTF-8")
+                    print(str_json)
                     obj = json.loads(str_json)
                     self.arm_handler.add_json(obj)
                 except json.JSONDecodeError as e:
