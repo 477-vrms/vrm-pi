@@ -1,4 +1,4 @@
-from multiprocessing import Process
+from threading import Thread
 
 from vrms.hardware.arm import ArmHandler
 from vrms.network.mqtt import Mqtt
@@ -23,9 +23,9 @@ def udp() -> None:
 class Background:
 
     def __init__(self):
-        self.p1 = Process(target=arm)
-        self.p2 = Process(target=mqtt)
-        self.p3 = Process(target=udp)
+        self.p1 = Thread(target=arm)
+        self.p2 = Thread(target=mqtt)
+        self.p3 = Thread(target=udp)
 
     def listen(self):
         self.p1.start()
