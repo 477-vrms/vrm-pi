@@ -2,15 +2,25 @@ import zmq
 from zmq import Socket
 import json
 
+from vrms.hardware.arm import ArmHandler
+
 
 class Mqtt:
 
-    def __init__(self, arm_handler):
+    default = None
+
+    @classmethod
+    def load_mqtt(cls):
+        if cls.default is None:
+            cls.default = Mqtt()
+        return cls.default
+
+    def __init__(self):
         self.ctx = zmq.Context()
         self.subscriber: Socket = self.ctx.socket(zmq.SUB)
         self.subscriber.connect("tcp://34.132.95.250:2001")
         self.subscriber.setsockopt(zmq.SUBSCRIBE, b"vrms_pi")
-        self.arm_handler = arm_handler
+        self.arm_handler = ArmHandler.load_arm()
 
     def client(self) -> None:
         while True:

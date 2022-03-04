@@ -25,6 +25,14 @@ def on_retrieve_position(self,arm_json) -> None:
 
 class ArmHandler:
 
+    default = None
+
+    @classmethod
+    def load_arm(cls):
+        if cls.default is None:
+            cls.default = ArmHandler()
+        return cls.default
+
     def __init__(self):
         self.j1 = 1500
         self.j2 = 1500
@@ -34,8 +42,16 @@ class ArmHandler:
         self.j6 = 1500
         self.j7 = 1500
         self.j8 = 1500
-        pass
+
+        self.queue = None
 
     def add_json(self, item):
-        on_retrieve_position(self,arm_json=item)
-        uart_tx_rx(self)
+        pass
+        # on_retrieve_position(self,arm_json=item)
+        # uart_tx_rx(self)
+
+    def client(self):
+        while True:
+            if self.queue is not None:
+                print("queue is not empty")
+

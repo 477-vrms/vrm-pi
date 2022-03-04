@@ -5,6 +5,14 @@ from time import sleep
 
 class Udp:
 
+    default = None
+
+    @classmethod
+    def load_udp(cls):
+        if cls.default is None:
+            cls.default = Udp()
+        return cls.default
+
     def __init__(self):
         self.s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
