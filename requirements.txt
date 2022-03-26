@@ -14,5 +14,6 @@ python-daemon==2.3.0
 pyzmq==22.3.0
 service==0.6.0
 setproctitle==1.2.2
-pyserial==3.4
-setuptools==60.7.0; python_version >= '3.7'
+pyserial==3.5
+picamera==1.13
+setuptools==61.1.0; python_version >= '3.7'
