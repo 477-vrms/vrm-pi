@@ -5,7 +5,7 @@ RUN \
   apt update && \
   apt -y upgrade && \
   apt install -y sudo
-RUN apt install -y systemctl
+RUN apt install -y systemctl libcamera libcamera-dev meson libgnutls28-dev libboost-all-dev
 
 
 # Setting up SYSTEMCTL
