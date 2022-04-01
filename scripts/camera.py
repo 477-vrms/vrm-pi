@@ -1,3 +1,11 @@
-from picamera2.picamera2 import *
+import socket
+from time import sleep
 
-picam2 = Picamera2()
+f = open("img/pi.jpeg", "rb")
+image: bytes = f.read()
+f.close()
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+while True:
+    print("sending message")
+    sock.sendto(image, ("127.0.0.1", 4200))
+    sleep(1)
