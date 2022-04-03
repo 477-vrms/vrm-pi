@@ -31,13 +31,13 @@ class Mqtt:
             self.arm_handler.enqueue(obj)
         elif obj["action"] == "video_ready":
             udp = Udp.load_udp()
-            udp.start_sending()
+            udp.set_is_sent(1)
         elif obj["action"] == "video_start":
             udp = Udp.load_udp()
-            udp.set_is_sent(True)
+            udp.set_is_sent(2)
         elif obj["action"] == "video_end":
             udp = Udp.load_udp()
-            udp.stop_sending()
+            udp.set_is_sent(0)
 
     def client(self, lock) -> None:
         while True:
