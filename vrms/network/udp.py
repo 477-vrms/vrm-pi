@@ -20,20 +20,10 @@ class Udp:
         self.c = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.c.bind(("127.0.0.1", 4200))
 
-        self.is_sending = False
+        self.is_sending = 0
 
     def send_response(self, response):
         self.s.sendto(response, ("34.132.95.250", 2002))
-
-    def start_sending(self):
-        init = {
-            "id": "vrms-pi",
-            "password": "FAKEPASSWORD"
-        }
-        response = json.dumps(init).encode('utf-8')
-        while not self.is_sending:
-            self.send_response(response)
-            sleep(1)
 
     def set_is_sent(self, is_sent):
         self.is_sending = is_sent
@@ -42,12 +32,16 @@ class Udp:
         frame = self.c.recvfrom(1024 * 65)
         self.send_response(frame[0])
 
-    def stop_sending(self):
-        self.is_sending = False
-
     def client(self, lock) -> None:
+        init = {
+            "id": "vrms-pi",
+            "password": "FAKEPASSWORD"
+        }
+        response = json.dumps(init).encode('utf-8')
         while True:
-            if self.is_sending:
+            if self.is_sending == 1:
+                self.send_response(response)
+            if self.is_sending == 2:
                 self.send_frame()
             else:
                 sleep(1)
