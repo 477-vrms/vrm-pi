@@ -27,7 +27,7 @@ class Udp:
 
     def start_sending(self):
         init = {
-            "id": "vrms-pi",
+            "id": "vrms_pi",
             "password": "FAKEPASSWORD"
         }
         response = json.dumps(init).encode('utf-8')

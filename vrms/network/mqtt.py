@@ -26,6 +26,7 @@ class Mqtt:
         self.arm_handler = ArmHandler.load_arm()
 
     def handle_obj(self, obj):
+        print("msg: ", obj)
         if obj["action"] == "move":
             self.arm_handler.enqueue(obj)
         elif obj["action"] == "video_ready":
