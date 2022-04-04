@@ -1,6 +1,7 @@
 import json
 import socket
 from time import sleep
+import base64
 
 
 class Udp:
@@ -32,6 +33,10 @@ class Udp:
         frame = self.c.recvfrom(1024 * 20)
         # print("sending frame: ", len(frame[0]))
         self.send_response(frame[0])
+    
+    def get_frame(self):
+        frame = self.c.recvfrom(1024 * 20)
+        return frame[0]
 
     def client(self, lock) -> None:
         init = {
