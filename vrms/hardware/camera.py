@@ -1,10 +1,12 @@
 from time import sleep
 from picamera import PiCamera
 import io
+import itertools
+import picamera
 
 def get_camera_generator():
     camera = PiCamera()
-    camera.resolution = (64 * 3, 48 * 3)
+    camera.resolution = (640, 480)
     camera.framerate = 30
     stream = io.BytesIO()
 
@@ -13,9 +15,3 @@ def get_camera_generator():
         yield stream.read()
         stream.seek(0)
         stream.truncate()
-
-# camera.resolution = (1024, 768)
-# camera.start_preview()
-# # Camera warm-up time
-# sleep(2)
-# camera.capture('foo.jpg')

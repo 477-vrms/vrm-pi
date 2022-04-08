@@ -28,12 +28,15 @@ class Mqtt:
         if obj["action"] == "move":
             self.arm_handler.enqueue(obj)
         elif obj["action"] == "video_ready":
+            print(obj)
             udp = Udp.load_udp()
             udp.set_is_sent(1)
         elif obj["action"] == "video_start":
+            print(obj)
             udp = Udp.load_udp()
             udp.set_is_sent(2)
         elif obj["action"] == "video_end":
+            print(obj)
             udp = Udp.load_udp()
             udp.set_is_sent(0)
 
