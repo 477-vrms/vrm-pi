@@ -6,7 +6,7 @@ import picamera
 
 def get_camera_generator():
     camera = PiCamera()
-    camera.resolution = (640, 480)
+    camera.resolution = (1920, 1080)
     camera.framerate = 30
     stream = io.BytesIO()
 

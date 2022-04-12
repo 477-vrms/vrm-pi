@@ -77,7 +77,7 @@ class ArmHandler:
             self.j5) + ":" + str(self.j6) + ":" + str(self.j7) + ":" + str(self.j8))
         j_str_encode = (j_str + "$"*(96-len(j_str))).encode('utf-8')
         #print(j_str_encode)
-        serialPort = serial.Serial("/dev/ttyAMA1", 9600, parity=serial.PARITY_NONE,timeout=0.2)
+        serialPort = serial.Serial("/dev/ttyAMA0", 9600, parity=serial.PARITY_NONE,timeout=0.2)
         #print(serialPort)
         bytes_sent = serialPort.write(j_str_encode)
         #print("SENT: ")
@@ -96,3 +96,8 @@ class ArmHandler:
         self.j6 = arm_json["J6"]
         self.j7 = arm_json["J7"]
         self.j8 = arm_json["J8"]
+        
+if __name__ == "__main__":
+    serialPort = serial.Serial("/dev/ttyAMA0", 9600, parity=serial.PARITY_NONE,timeout=0.2)
+    while(1):
+        bytes_sent = serialPort.write("******")
