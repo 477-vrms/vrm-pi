@@ -37,6 +37,7 @@ class Mqtt:
             udp = Udp.load_udp()
             udp.set_is_sent(0)
         elif obj["action"] == "buzzer":
+            print("buzzer")
             self.arm_handler.activate_buzzer()
 
     def client(self, lock) -> None:
