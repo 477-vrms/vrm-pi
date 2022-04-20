@@ -46,7 +46,7 @@ class ArmHandler:
         self.j4 = 1500
         self.j5 = 1500
         self.j6 = 1500
-        self.j7 = 1500
+        self.j7 = 1500 
         self.j8 = 1500
 
         self.queue_head = None
@@ -96,8 +96,23 @@ class ArmHandler:
         self.j6 = arm_json["J6"]
         self.j7 = arm_json["J7"]
         self.j8 = arm_json["J8"]
+    
+    def activate_buzzer(self):
+        self.j1 = "*"
+        self.j2 = "*"
+        self.j3 = "*"
+        self.j4 = "*"
+        self.j5 = "*"
+        self.j6 = "*"
+        self.j7 = "*"
+        self.j8 = "*"
+        self.uart_tx_rx()
         
-if __name__ == "__main__":
-    serialPort = serial.Serial("/dev/ttyAMA0", 9600, parity=serial.PARITY_NONE,timeout=0.2)
-    while(1):
-        bytes_sent = serialPort.write("******")
+# if __name__ == "__main__":
+#         serialPort = serial.Serial("/dev/ttyAMA0", 9600, parity=serial.PARITY_NONE,timeout=0.2)
+#         #print(serialPort)
+#         while(1):
+#             bytes_sent = serialPort.write("118".encode('utf-8'))
+#         #print("SENT: ")
+#         #print(bytes_sent)
+#             loopback = serialPort.read(bytes_sent)

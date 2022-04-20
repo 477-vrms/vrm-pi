@@ -6,7 +6,7 @@ import random
 
 from vrms.hardware.camera import get_camera_generator
 
-packet_size = 50000
+packet_size = 25000
 header_size = 10
 data_packet_size = packet_size - header_size
 
@@ -26,7 +26,7 @@ def split_image(data):
     start, end = 0, data_packet_size
 
     for i in range(num_packets):
-        print(f"photo id: {photo_id}, i: {i}, num_packets: {num_packets}, photo size: {photo_size}")
+        # print(f"photo id: {photo_id}, i: {i}, num_packets: {num_packets}, photo size: {photo_size}")
         packet_id = i.to_bytes(1, 'little')
         yield photo_id_bytes + packet_id + num_packets_bytes + photo_size_bytes + data[start:end]
         start += data_packet_size
@@ -60,6 +60,7 @@ class Udp:
 
     def send_frame(self):
         frame = next(self.c)
+        # self.send_response(frame)
         for packet in split_image(frame):
             self.send_response(packet)
     
