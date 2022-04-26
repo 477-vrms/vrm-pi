@@ -49,13 +49,11 @@ class Udp:
         self.c = get_camera_generator()
 
         self.is_sending = 0
-        self.count = 0
 
     def send_response(self, response):
         self.s.sendto(response, ("34.132.95.250", 2002))
 
     def set_is_sent(self, is_sent):
-        self.count = 0
         self.is_sending = is_sent
 
     def send_frame(self):
