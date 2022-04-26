@@ -51,6 +51,18 @@ class ArmHandler:
 
         self.queue_head = None
 
+    def activate_buzzer(self):
+        self.enqueue({
+            "J1": "*",
+            "J2": "*",
+            "J3": "*",
+            "J4": "*",
+            "J5": "*",
+            "J6": "*",
+            "J7": "*",
+            "J8": "*",
+        })
+
     def enqueue(self, item):
         n = Node(item)
         self.queue_head = n

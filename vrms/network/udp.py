@@ -1,8 +1,8 @@
 import json
 import socket
 from time import sleep
-import base64
 import random
+from vrms.hardware.arm import ArmHandler
 
 from vrms.hardware.camera import get_camera_generator
 
@@ -10,11 +10,12 @@ packet_size = 25000
 header_size = 10
 data_packet_size = packet_size - header_size
 
+
 def split_image(data):
     photo_size = len(data)
     num_packets = (photo_size // data_packet_size)
 
-    if (photo_size % data_packet_size != 0):
+    if photo_size % data_packet_size != 0:
         num_packets += 1
 
     photo_size_bytes = photo_size.to_bytes(4, 'little')
@@ -32,6 +33,7 @@ def split_image(data):
         start += data_packet_size
         end += data_packet_size
 
+
 class Udp:
     default = None
 
@@ -47,15 +49,21 @@ class Udp:
         self.s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
 
         self.c = get_camera_generator()
-
         self.is_sending = 0
-        self.count = 0
+        self.arm = None
+
+    def set_arm_handler(self, arm):
+        self.arm = arm
 
     def send_response(self, response):
-        self.s.sendto(response, ("34.132.95.250", 2002))
+        try:
+            self.s.sendto(response, ("34.132.95.250", 2002))
+        except Exception as e:
+            self.set_is_sent(0)
+            if self.arm:
+                self.arm.activate_buzzer()
 
     def set_is_sent(self, is_sent):
-        self.count = 0
         self.is_sending = is_sent
 
     def send_frame(self):
@@ -64,7 +72,7 @@ class Udp:
         # self.send_response(frame)
         for packet in split_image(frame):
             self.send_response(packet)
-    
+
     def client(self, lock) -> None:
         init = {
             "id": "vrms_pi",
