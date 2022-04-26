@@ -87,7 +87,7 @@ class ArmHandler:
         #print(loopback)
 
     def on_retrieve_position(self, arm_json) -> None:
-        #print(arm_json)
+        # print(arm_json)
         self.j1 = arm_json["J1"]
         self.j2 = arm_json["J2"]
         self.j3 = arm_json["J3"]
@@ -96,17 +96,6 @@ class ArmHandler:
         self.j6 = arm_json["J6"]
         self.j7 = arm_json["J7"]
         self.j8 = arm_json["J8"]
-    
-    def activate_buzzer(self):
-        self.j1 = "*"
-        self.j2 = "*"
-        self.j3 = "*"
-        self.j4 = "*"
-        self.j5 = "*"
-        self.j6 = "*"
-        self.j7 = "*"
-        self.j8 = "*"
-        self.uart_tx_rx()
         
 # if __name__ == "__main__":
 #         serialPort = serial.Serial("/dev/ttyAMA0", 9600, parity=serial.PARITY_NONE,timeout=0.2)

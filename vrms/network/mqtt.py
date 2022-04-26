@@ -24,6 +24,19 @@ class Mqtt:
 
         self.arm_handler = ArmHandler.load_arm()
 
+    def activate_buzzer(self):
+        obj = {
+                "J1": "*",
+                "J2": "*",
+                "J3": "*",
+                "J4": "*",
+                "J5": "*",
+                "J6": "*",
+                "J7": "*",
+                "J8": "*",
+        }
+        self.arm_handler.enqueue(obj)
+
     def handle_obj(self, obj):
         if obj["action"] == "move":
             self.arm_handler.enqueue(obj)
@@ -37,8 +50,7 @@ class Mqtt:
             udp = Udp.load_udp()
             udp.set_is_sent(0)
         elif obj["action"] == "buzzer":
-            print("buzzer")
-            self.arm_handler.activate_buzzer()
+            self.activate_buzzer()
 
     def client(self, lock) -> None:
         while True:

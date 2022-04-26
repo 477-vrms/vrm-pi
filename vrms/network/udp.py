@@ -60,6 +60,7 @@ class Udp:
 
     def send_frame(self):
         frame = next(self.c)
+        # print("sending frame")
         # self.send_response(frame)
         for packet in split_image(frame):
             self.send_response(packet)

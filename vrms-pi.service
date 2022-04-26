@@ -1,5 +1,7 @@
 [Unit]
-Description=Simple Service
+Description=Simple Service for Senior Design VRm Project
+Wants=network-online.target
+After=network-online.target
 
 [Install]
 WantedBy=multi-user.target
