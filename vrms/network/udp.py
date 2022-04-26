@@ -49,21 +49,25 @@ class Udp:
         self.c = get_camera_generator()
 
         self.is_sending = 0
-        self.count = 0
 
     def send_response(self, response):
         self.s.sendto(response, ("34.132.95.250", 2002))
 
     def set_is_sent(self, is_sent):
-        self.count = 0
         self.is_sending = is_sent
+        if self.is_sending == 0:
+            self.c.close()
+            self.c = None
+        elif self.c is None:
+            self.c = get_camera_generator()
 
     def send_frame(self):
-        frame = next(self.c)
-        # print("sending frame")
-        # self.send_response(frame)
-        for packet in split_image(frame):
-            self.send_response(packet)
+        if self.c is not None:
+            frame = next(self.c)
+            # print("sending frame")
+            # self.send_response(frame)
+            for packet in split_image(frame):
+                self.send_response(packet)
     
     def client(self, lock) -> None:
         init = {

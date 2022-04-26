@@ -5,8 +5,8 @@ import json
 from vrms.hardware.arm import ArmHandler
 from vrms.network.udp import Udp
 
-class Mqtt:
 
+class Mqtt:
     default = None
 
     @classmethod
@@ -26,18 +26,19 @@ class Mqtt:
 
     def activate_buzzer(self):
         obj = {
-                "J1": "*",
-                "J2": "*",
-                "J3": "*",
-                "J4": "*",
-                "J5": "*",
-                "J6": "*",
-                "J7": "*",
-                "J8": "*",
+            "J1": "*",
+            "J2": "*",
+            "J3": "*",
+            "J4": "*",
+            "J5": "*",
+            "J6": "*",
+            "J7": "*",
+            "J8": "*",
         }
         self.arm_handler.enqueue(obj)
 
     def handle_obj(self, obj):
+        print(obj)
         if obj["action"] == "move":
             self.arm_handler.enqueue(obj)
         elif obj["action"] == "video_ready":
@@ -59,10 +60,6 @@ class Mqtt:
                 try:
                     str_json = response.decode("UTF-8")
                     obj = json.loads(str_json)
-                    lock.acquire()
-                    try:
-                        self.handle_obj(obj)
-                    finally:
-                        lock.release()
+                    self.handle_obj(obj)
                 except json.JSONDecodeError as e:
                     print(e)
