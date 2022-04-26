@@ -19,6 +19,7 @@ def mqtt(lock) -> None:
 def udp(lock) -> None:
     u = Udp.load_udp()
     u.client(lock)
+    pass
 
 
 class Background:
